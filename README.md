@@ -1,22 +1,28 @@
-# NPR_CV
-NPR Deepfake Detection to detect between real and fake images replicating this paper's model"https://arxiv.org/abs/2312.10461"
+# NPR Deepfake Detection
 
-Project: NPR Deepfake Detection
-Goal: Detect whether an input image is real or fake/generated.
-Input: RGB image.
-Output: real/fake prediction with probability.
-Approach: NPR transform + lightweight CNN detector.
-Dataset: ForenSynths/Wang_CVPR2020.
-Main result: 91.10% fair Table 1-style mean accuracy vs paper 92.45%.
-Deployment: Flask/Docker REST API.
+This project implements Neighboring Pixel Relationships (NPR) for generalizable fake/generated image detection.
 
-Main commands:
+## Goal
+Input: RGB image  
+Output: Real/Fake prediction with probabilities.
 
-pip install -r requirements.txt
-python src/inference.py --image path/to/image.jpg --model models/best_npr_detector.pt
+## Method
+The image is converted into an NPR representation using 2x2 neighboring pixel differences, then classified using a lightweight CNN detector.
 
-For deployment:
+## Dataset
+ForenSynths / Wang_CVPR2020.
 
-cd deployment
-docker build -t npr-detector .
-docker run -p 5000:5000 npr-detector
+## Main Results
+- Phase 2 validation accuracy: 99.94%
+- Phase 3 overall accuracy over 13 sources: 79.34%
+- Fair Table 1-style accuracy over 8 paper-matching sources: 91.10%
+- Paper Table 1 mean accuracy: 92.45%
+
+## Deployment
+See `deployment/README_DEPLOYMENT.txt`.
+
+## Project Structure
+- `notebooks/`: preprocessing, training, evaluation
+- `deployment/`: model checkpoint and inference code
+- `results/`: metrics and CSV files
+- `report/`: final PDF documentation
